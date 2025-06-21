@@ -1,0 +1,222 @@
+<!--
+Program name: patient-form.html
+Author: Bareera Tariq
+Date created: 06/20/2025
+Version: 1.0
+Description: Patient registration form for We Care Clinic
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We Care Clinic – Patient Registration</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="banner">
+    <h1 style="display: flex; align-items: center; gap: 10px;">
+      <img
+        src="81200612-bc42-4564-b5f4-592bed03d4b9.png"
+        alt="We Care Clinic Logo"
+        width="120"
+        height="auto"
+        style="vertical-align: middle"
+      />
+      <span>We Care Clinic</span>
+    </h1>
+    <p id="date-display">
+      <script>
+        const today = new Date();
+        const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+        document.getElementById("date-display").innerHTML =
+          "Today's Date: " + today.toLocaleDateString("en-US", options);
+      </script>
+    </p>
+  </div>
+
+  <!-- Main Form -->
+  <div id="main-form">
+    <h2>New Patient Registration</h2>
+    <form id="main-form-id" action="thankyou.html" method="get" onsubmit="return validateForm();">
+      <table class="form-table">
+
+        <!-- Full Name -->
+        <tr>
+          <td><label for="fname">Full Name:</label></td>
+          <td>
+            <input type="text" id="fname" name="firstname" placeholder="First Name" required maxlength="30" pattern="[a-zA-Z'-]+" title="First name only letters, apostrophes, dashes" />
+            <input type="text" id="minitial" name="minitial" placeholder="MI" maxlength="1" pattern="[a-zA-Z]?" title="Middle initial - 1 letter" />
+            <input type="text" id="lname" name="lastname" placeholder="Last Name" required maxlength="30" pattern="[a-zA-Z0-9'-]+" title="Last name only letters, apostrophes, dashes, numbers" />
+          </td>
+        </tr>
+
+        <!-- DOB -->
+        <tr>
+          <td><label for="dob">Date of Birth:</label></td>
+          <td><input type="date" id="dob" name="dob" required title="DOB cannot be in future or 120+ years ago" /></td>
+        </tr>
+
+        <!-- SSN -->
+        <tr>
+          <td><label for="ssn">Patient ID:</label></td>
+          <td><input type="password" id="ssn" name="ssn" maxlength="11" required placeholder="***-**-****" pattern="\d{3}-\d{2}-\d{4}" title="9-digit format: XXX-XX-XXXX" /></td>
+        </tr>
+
+        <!-- Address -->
+        <tr>
+          <td><label for="address1">Address:</label></td>
+          <td>
+            <input type="text" id="address1" name="address1" required maxlength="30" minlength="2" placeholder="Address Line 1" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="text" id="address2" name="address2" maxlength="30" minlength="2" placeholder="Address Line 2" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="text" id="city" name="city" required maxlength="30" minlength="2" placeholder="City" style="width: 40%" />
+            <select id="state" name="state" required style="width: 30%">
+              <option value="">--Select State--</option>
+              <option value="TX">Texas</option>
+              <option value="CA">California</option>
+              <!-- Add other states here -->
+            </select>
+            <input type="text" id="zip" name="zip" required maxlength="10" placeholder="Zip Code" pattern="\d{5}(-\d{4})?" style="width: 20%" />
+          </td>
+        </tr>
+
+        <!-- Contact Info -->
+        <tr>
+          <td><label for="email">Email:</label></td>
+          <td><input type="email" id="email" name="email" required placeholder="you@example.com" /></td>
+        </tr>
+        <tr>
+          <td><label for="phone">Phone:</label></td>
+          <td><input type="tel" id="phone" name="phone" required placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" /></td>
+        </tr>
+
+        <!-- Symptoms -->
+        <tr>
+          <td><label for="symptoms">Symptoms:</label></td>
+          <td><textarea id="symptoms" name="symptoms" rows="3" cols="50" placeholder="Describe your symptoms..." pattern="[^\"]*"></textarea></td>
+        </tr>
+
+        <!-- Checkboxes -->
+        <tr>
+          <td colspan="2">
+            <fieldset>
+              <legend>Medical History:</legend>
+              <input type="checkbox" id="c1" name="cond" value="chickenpox" /><label for="c1">Chicken Pox</label><br />
+              <input type="checkbox" id="c2" name="cond" value="measles" /><label for="c2">Measles</label><br />
+              <input type="checkbox" id="c3" name="cond" value="covid" /><label for="c3">COVID-19</label><br />
+              <input type="checkbox" id="c4" name="cond" value="tetanus" /><label for="c4">Tetanus</label><br />
+              <input type="checkbox" id="c5" name="cond" value="mumps" /><label for="c5">Mumps</label><br />
+            </fieldset>
+          </td>
+        </tr>
+
+        <!-- Radios -->
+        <tr>
+          <td colspan="2">
+            <fieldset><legend>Gender</legend>
+              <input type="radio" id="g_male" name="gender" value="male" /><label for="g_male">Male</label>
+              <input type="radio" id="g_female" name="gender" value="female" /><label for="g_female">Female</label>
+              <input type="radio" id="g_other" name="gender" value="other" /><label for="g_other">Other</label>
+            </fieldset>
+
+            <fieldset><legend>Vaccinated for COVID-19?</legend>
+              <input type="radio" id="vax_y" name="vaccinated" value="yes" /><label for="vax_y">Yes</label>
+              <input type="radio" id="vax_n" name="vaccinated" value="no" /><label for="vax_n">No</label>
+            </fieldset>
+
+            <fieldset><legend>Insurance Status</legend>
+              <input type="radio" id="ins_y" name="insurance" value="yes" /><label for="ins_y">Yes</label>
+              <input type="radio" id="ins_n" name="insurance" value="no" /><label for="ins_n">No</label>
+            </fieldset>
+          </td>
+        </tr>
+
+        <!-- Slider -->
+        <tr>
+          <td><label for="health_scale">Current Health:</label></td>
+          <td>
+            <span>Poor</span>
+            <input type="range" id="health_scale" name="health_scale" min="1" max="10" value="5" oninput="updateHealthValue(this.value)" style="width: 70%" />
+            <span>Excellent</span>
+            <span id="health-value" style="font-weight: bold; margin-left: 10px;">5</span>
+          </td>
+        </tr>
+
+        <!-- Account -->
+        <tr>
+          <td><label for="userid">Username:</label></td>
+          <td><input type="text" id="userid" name="userid" required pattern="[a-zA-Z][a-zA-Z0-9_-]{4,29}" title="Starts with letter, 5-30 chars, no spaces" onblur="this.value = this.value.toLowerCase()" /></td>
+        </tr>
+        <tr>
+          <td><label for="pass1">Password:</label></td>
+          <td><input type="password" id="pass1" name="password" required minlength="8" maxlength="30" title="Must contain 1 uppercase, 1 lowercase, 1 digit, 1 special character (no quotes)." /></td>
+        </tr>
+        <tr>
+          <td><label for="pass2">Confirm Password:</label></td>
+          <td><input type="password" id="pass2" name="password_confirm" required minlength="8" maxlength="30" /></td>
+        </tr>
+
+        <!-- Buttons -->
+        <tr>
+          <td colspan="2" style="text-align: center">
+            <button type="reset">Start Over</button>
+            <button type="button" onclick="reviewAndValidate()">Review</button>
+            <button type="submit" id="submit-button">Submit</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <!-- Review Section -->
+  <div id="review-section" style="display: none;">
+    <h2>Review Your Information</h2>
+    <p>Check everything below before confirming.</p>
+    <div id="review-output"></div>
+    <div style="text-align: center;">
+      <button onclick="document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});">Back</button>
+      <button type="submit" form="main-form-id" id="final-submit-button">Confirm & Submit</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>We Care Clinic</p>
+    <p>123 Wellness Drive, Houston, TX 77004</p>
+    <button onclick="alert('Contact us at info@wecareclinic.com');">Contact Us</button>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function validateForm() {
+      const pass1 = document.getElementById("pass1").value;
+      const pass2 = document.getElementById("pass2").value;
+      if (pass1 !== pass2) {
+        alert("Passwords do not match.");
+        return false;
+      }
+      return true;
+    }
+
+    function updateHealthValue(val) {
+      document.getElementById("health-value").innerText = val;
+    }
+
+    function reviewAndValidate() {
+      alert("This would display a review of the form values here (add JS in script.js)");
+      // Optional: Implement review logic
+    }
+  </script>
+</body>
+</html>
